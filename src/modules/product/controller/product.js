@@ -9,14 +9,12 @@ import productModel from "../../../../DB/model/Product.model.js"
 
 
 
-
+0
 export const test = asyncHandler((req, res, next) => {
     return res.json({ message: "hi" })
 })
 
-/* (userName,phone,email,password,cPassword,status) */
 
-//signUp
 export const createProduct = asyncHandler(async (req, res, next) => {
 
     const { name, price, discount, categoryId, subcategoryId, brandId } = req.body;
@@ -29,7 +27,7 @@ export const createProduct = asyncHandler(async (req, res, next) => {
     }
 
     // create slug
-    req.body.slug = slugify(nane, {
+    req.body.slug = slugify(name, {
         replacement: "-",
         trim: true,
         lower: true
@@ -45,7 +43,7 @@ export const createProduct = asyncHandler(async (req, res, next) => {
 
     if (req.files?.subImages?.lenght) {
         req.body.subImages = []
-        for (const iterator of object) {
+        for (const file of req.files.subImages) {
             const { secure_url, public_url } = await cloudinary.uploader.upload(file.path, { folder: `${process.env.APP_NAME}/product/${req.body.customId}/subImages` })
             req.body.subImages.push({ secure_url, public_url })
         }
@@ -53,6 +51,5 @@ export const createProduct = asyncHandler(async (req, res, next) => {
     req.body.createdBy = req.user._id
     const product = await productModel.create(req.body)
     return res.status(201).json({ message: "Done", product })
-
 })
 

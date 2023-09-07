@@ -17,7 +17,7 @@ export const createBrand = asyncHandler(async (req, res, next) => {
     const brand = await brandModel.create({
         name,
         image: { secure_url, public_id },
-        createBy: req.user._id
+        createdBy: req.user._id
     })
     if (!brand) {
         return next(new Error("fail to create  your brand", { cause: 400 }))
