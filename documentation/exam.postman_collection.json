@@ -1,0 +1,1158 @@
+{
+	"info": {
+		"_postman_id": "424f38e6-77df-4970-93a7-4ae7c070e131",
+		"name": "exam",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24483940"
+	},
+	"item": [
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "signup",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userName\": \"mina\",\r\n    \"phone\": \"0100955706\",\r\n    \"email\": \"minag2077@gmail.com\",\r\n    \"password\": \"Mina@123\",\r\n    \"cPassword\": \"Mina@123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/auth/sign_up",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"auth",
+								"sign_up"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"minag2077@gmail.com\",\r\n    \"password\":\"Mina@123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/auth/sign_in",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"auth",
+								"sign_in"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "log out",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "Min@__eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MjhiNjAxOTY4OWExZTIzZjhlMTYxYSIsInVzZXJOYW1lIjoibWluYSIsImVtYWlsIjoibWluYWcyMDc3QGdtYWlsLmNvbSIsImlhdCI6MTY4MDQ1MDA4MCwiZXhwIjoxNjgwNTM2NDgwfQ.nqciRcJiMgKXAcMr7IwG_H082Z3X1l44hNOUys2FVQk",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"minag2077@gmail.com\",\r\n    \"password\":\"Mina@123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/auth/log_out",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"auth",
+								"log_out"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "forGotPass",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"minag207@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/auth/forGotPass",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"auth",
+								"forGotPass"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GotNewPass",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/auth/GotNewPass",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"auth",
+								"GotNewPass"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "get profile of user",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "Min@__eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MjhiNjAxOTY4OWExZTIzZjhlMTYxYSIsInVzZXJOYW1lIjoibWluYSIsImVtYWlsIjoibWluYWcyMDc3QGdtYWlsLmNvbSIsImlhdCI6MTY4MDQzNjk4NywiZXhwIjoxNjgwNTIzMzg3fQ.G3o9IhOj4W7MRlZtxaXabyQIM81L5HORMFWRzdW9zRA",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/user/userProfile",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"user",
+								"userProfile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get user posts",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "Min@__eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MjhiNjAxOTY4OWExZTIzZjhlMTYxYSIsInVzZXJOYW1lIjoibWluYSIsImVtYWlsIjoibWluYWcyMDc3QGdtYWlsLmNvbSIsImlhdCI6MTY4MDQ1MDEwNywiZXhwIjoxNjgwNTM2NTA3fQ.WIykQ6QSxBruMeKrChZPQofJ97KLc31mpyww8RlYeOs",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/user/userPosts",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"user",
+								"userPosts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "user Profile image",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "Min@__eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MjhiNjAxOTY4OWExZTIzZjhlMTYxYSIsInVzZXJOYW1lIjoibWluYSIsImVtYWlsIjoibWluYWcyMDc3QGdtYWlsLmNvbSIsImlhdCI6MTY4MDQ1MDEwNywiZXhwIjoxNjgwNTM2NTA3fQ.WIykQ6QSxBruMeKrChZPQofJ97KLc31mpyww8RlYeOs",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/mina gorge/Pictures/289106682027211.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:5000/user/userPirPic",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"user",
+								"userPirPic"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "user Profile cover images",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "Min@__eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MjhiNjAxOTY4OWExZTIzZjhlMTYxYSIsInVzZXJOYW1lIjoibWluYSIsImVtYWlsIjoibWluYWcyMDc3QGdtYWlsLmNvbSIsImlhdCI6MTY4MDQ1MDEwNywiZXhwIjoxNjgwNTM2NTA3fQ.WIykQ6QSxBruMeKrChZPQofJ97KLc31mpyww8RlYeOs",
+								"type": "text"
+							},
+							{
+								"key": "",
+								"value": "",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": [
+										"/C:/Users/mina gorge/Pictures/Screenshot 2022-10-02 194704.png",
+										"/C:/Users/mina gorge/Pictures/Screenshot 2022-10-27 174235.png",
+										"/C:/Users/mina gorge/Pictures/Screenshot 2022-10-27 174449.png"
+									]
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:5000/user/userCoverPiC",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"user",
+								"userCoverPiC"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update password",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "Min@__eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MDIyNTU1OGRlOThhOTAxZWFlMjlhMSIsInVzZXJOYW1lIjoibWluYSIsImVtYWlsIjoibWluYTI2MEBnbWFpbC5jb20iLCJpYXQiOjE2Nzg0NDY2MzAsImV4cCI6MTY3ODUzMzAzMH0.QIRBdAzeVaO-XJv_SzQNFZBJzCTzO6yuw641Me26rMo",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"oldPassword\":\"Mina@123\",\r\n    \"newPassword\":\"Mina1@123\",\r\n    \"cPassword\":\"Mina1@123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/user/updateProfile",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"user",
+								"updateProfile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update user",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "Min@__eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MWFkM2RkYzRhYThkMzk4MzBlZGNmMCIsInVzZXJOYW1lIjoibWluYSIsImVtYWlsIjoibWluYWcyMDc3QGdtYWlsLmNvbSIsImlhdCI6MTY4MDM3OTM3OCwiZXhwIjoxNjgwNDY1Nzc4fQ.XnY0LeEGL8HauwG1kgpl_xukJsc6P6Cc13v5DmYwQew",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userName\":\"mina160\",\r\n    \"phone\":\"40\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/user/update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"user",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete user",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "Min@__eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MWFkM2RkYzRhYThkMzk4MzBlZGNmMCIsInVzZXJOYW1lIjoibWluYSIsImVtYWlsIjoibWluYWcyMDc3QGdtYWlsLmNvbSIsImlhdCI6MTY4MDM3OTM3OCwiZXhwIjoxNjgwNDY1Nzc4fQ.XnY0LeEGL8HauwG1kgpl_xukJsc6P6Cc13v5DmYwQew",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/user/delete",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"user",
+								"delete"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "softdelete",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "Min@__eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MWFkM2RkYzRhYThkMzk4MzBlZGNmMCIsInVzZXJOYW1lIjoibWluYSIsImVtYWlsIjoibWluYWcyMDc3QGdtYWlsLmNvbSIsImlhdCI6MTY4MDM3OTM3OCwiZXhwIjoxNjgwNDY1Nzc4fQ.XnY0LeEGL8HauwG1kgpl_xukJsc6P6Cc13v5DmYwQew",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/user/softDelete",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"user",
+								"softDelete"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "post",
+			"item": [
+				{
+					"name": "get all posts",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/E:/corsat/Web/route/back end(_Node.js_)/3amly/op/download.jpg",
+									"disabled": true
+								},
+								{
+									"key": "bookName",
+									"value": "88888888",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "description",
+									"value": "1111555",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:5000/post",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"post"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add post",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "Min@__eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MjhiNjAxOTY4OWExZTIzZjhlMTYxYSIsInVzZXJOYW1lIjoibWluYSIsImVtYWlsIjoibWluYWcyMDc3QGdtYWlsLmNvbSIsImlhdCI6MTY4MDQ1Njc1MSwiZXhwIjoxNjgwNTQzMTUxfQ.etJ19O1Eb0m8ihDF0NJeHFAbcmoRWRPKonG77J6e1SY",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/mina gorge/Pictures/289106682027211.png",
+									"disabled": true
+								},
+								{
+									"key": "post",
+									"value": "facebookdsad",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:5000/post/add-post",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"post",
+								"add-post"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update post",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "Min@__eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MjhiNjAxOTY4OWExZTIzZjhlMTYxYSIsInVzZXJOYW1lIjoibWluYSIsImVtYWlsIjoibWluYWcyMDc3QGdtYWlsLmNvbSIsImlhdCI6MTY4MDQzNjk4NywiZXhwIjoxNjgwNTIzMzg3fQ.G3o9IhOj4W7MRlZtxaXabyQIM81L5HORMFWRzdW9zRA",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"post\":\"insta\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/post/6429be47d2252944ae46e1ad/update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"post",
+								"6429be47d2252944ae46e1ad",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete post",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "Min@__eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MjhiNjAxOTY4OWExZTIzZjhlMTYxYSIsInVzZXJOYW1lIjoibWluYSIsImVtYWlsIjoibWluYWcyMDc3QGdtYWlsLmNvbSIsImlhdCI6MTY4MDQzNjk4NywiZXhwIjoxNjgwNTIzMzg3fQ.G3o9IhOj4W7MRlZtxaXabyQIM81L5HORMFWRzdW9zRA",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/post/6429be47d2252944ae46e1ad/delete",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"post",
+								"6429be47d2252944ae46e1ad",
+								"delete"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "soft Delete Post",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "Min@__eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MjhiNjAxOTY4OWExZTIzZjhlMTYxYSIsInVzZXJOYW1lIjoibWluYSIsImVtYWlsIjoibWluYWcyMDc3QGdtYWlsLmNvbSIsImlhdCI6MTY4MDQzNjk4NywiZXhwIjoxNjgwNTIzMzg3fQ.G3o9IhOj4W7MRlZtxaXabyQIM81L5HORMFWRzdW9zRA",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/post/6429ac373a162c9f99ca5f1d/delete",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"post",
+								"6429ac373a162c9f99ca5f1d",
+								"delete"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update post add image",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "Min@__eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MjhiNjAxOTY4OWExZTIzZjhlMTYxYSIsInVzZXJOYW1lIjoibWluYSIsImVtYWlsIjoibWluYWcyMDc3QGdtYWlsLmNvbSIsImlhdCI6MTY4MDQzNjk4NywiZXhwIjoxNjgwNTIzMzg3fQ.G3o9IhOj4W7MRlZtxaXabyQIM81L5HORMFWRzdW9zRA",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/mina gorge/Pictures/Screenshot 2022-10-02 194704.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:5000/post/6429be47d2252944ae46e1ad/update/add-image",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"post",
+								"6429be47d2252944ae46e1ad",
+								"update",
+								"add-image"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete post image",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "Min@__eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MjhiNjAxOTY4OWExZTIzZjhlMTYxYSIsInVzZXJOYW1lIjoibWluYSIsImVtYWlsIjoibWluYWcyMDc3QGdtYWlsLmNvbSIsImlhdCI6MTY4MDQzNjk4NywiZXhwIjoxNjgwNTIzMzg3fQ.G3o9IhOj4W7MRlZtxaXabyQIM81L5HORMFWRzdW9zRA",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/post/6429be3c86eb96e000ddc2cf/delete/updb7se90o8eh0fm7r6x",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"post",
+								"6429be3c86eb96e000ddc2cf",
+								"delete",
+								"updb7se90o8eh0fm7r6x"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "like post",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "Min@__eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MjhiNjAxOTY4OWExZTIzZjhlMTYxYSIsInVzZXJOYW1lIjoibWluYSIsImVtYWlsIjoibWluYWcyMDc3QGdtYWlsLmNvbSIsImlhdCI6MTY4MDQzNjk4NywiZXhwIjoxNjgwNTIzMzg3fQ.G3o9IhOj4W7MRlZtxaXabyQIM81L5HORMFWRzdW9zRA",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/E:/corsat/Web/route/back end(_Node.js_)/3amly/op/download.jpg"
+								},
+								{
+									"key": "bookName",
+									"value": "88888888",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "1111555",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:5000/post/642982fb1bda278b9ee817a6/like",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"post",
+								"642982fb1bda278b9ee817a6",
+								"like"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "unlike post",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "Min@__eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MjhiNjAxOTY4OWExZTIzZjhlMTYxYSIsInVzZXJOYW1lIjoibWluYSIsImVtYWlsIjoibWluYWcyMDc3QGdtYWlsLmNvbSIsImlhdCI6MTY4MDQzNjk4NywiZXhwIjoxNjgwNTIzMzg3fQ.G3o9IhOj4W7MRlZtxaXabyQIM81L5HORMFWRzdW9zRA",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/E:/corsat/Web/route/back end(_Node.js_)/3amly/op/download.jpg"
+								},
+								{
+									"key": "bookName",
+									"value": "88888888",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "1111555",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:5000/post/642982fb1bda278b9ee817a6/unlike",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"post",
+								"642982fb1bda278b9ee817a6",
+								"unlike"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "comment",
+			"item": [
+				{
+					"name": "get all comments to post",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/E:/corsat/Web/route/back end(_Node.js_)/3amly/op/download.jpg",
+									"disabled": true
+								},
+								{
+									"key": "bookName",
+									"value": "88888888",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "description",
+									"value": "1111555",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:5000/post/6429cb78a816e4bef55d658a/comments",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"post",
+								"6429cb78a816e4bef55d658a",
+								"comments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add comment",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "Min@__eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MjhiNjAxOTY4OWExZTIzZjhlMTYxYSIsInVzZXJOYW1lIjoibWluYSIsImVtYWlsIjoibWluYWcyMDc3QGdtYWlsLmNvbSIsImlhdCI6MTY4MDQ1Njc1MSwiZXhwIjoxNjgwNTQzMTUxfQ.etJ19O1Eb0m8ihDF0NJeHFAbcmoRWRPKonG77J6e1SY",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"text\":\"hhhhh\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/post/6429cb78a816e4bef55d658a/comment",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"post",
+								"6429cb78a816e4bef55d658a",
+								"comment"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "reply comment",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "Min@__eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MjhiNjAxOTY4OWExZTIzZjhlMTYxYSIsInVzZXJOYW1lIjoibWluYSIsImVtYWlsIjoibWluYWcyMDc3QGdtYWlsLmNvbSIsImlhdCI6MTY4MDQ1Njc1MSwiZXhwIjoxNjgwNTQzMTUxfQ.etJ19O1Eb0m8ihDF0NJeHFAbcmoRWRPKonG77J6e1SY",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"text\":\"hhhhh\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/post/6429cb78a816e4bef55d658a/comment/6429cd29f68dc69e4608dd6c/reply",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"post",
+								"6429cb78a816e4bef55d658a",
+								"comment",
+								"6429cd29f68dc69e4608dd6c",
+								"reply"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update comment",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "Min@__eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MjhiNjAxOTY4OWExZTIzZjhlMTYxYSIsInVzZXJOYW1lIjoibWluYSIsImVtYWlsIjoibWluYWcyMDc3QGdtYWlsLmNvbSIsImlhdCI6MTY4MDQzNjk4NywiZXhwIjoxNjgwNTIzMzg3fQ.G3o9IhOj4W7MRlZtxaXabyQIM81L5HORMFWRzdW9zRA",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"text\":\"sadasdasd5sad\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/post/comment/6429d24c88bc168bf624b6df/update",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"post",
+								"comment",
+								"6429d24c88bc168bf624b6df",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete comment",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "Min@__eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MjhiNjAxOTY4OWExZTIzZjhlMTYxYSIsInVzZXJOYW1lIjoibWluYSIsImVtYWlsIjoibWluYWcyMDc3QGdtYWlsLmNvbSIsImlhdCI6MTY4MDQzNjk4NywiZXhwIjoxNjgwNTIzMzg3fQ.G3o9IhOj4W7MRlZtxaXabyQIM81L5HORMFWRzdW9zRA",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/post/comment/6429d29a92d2bbb40b15ad33/delete",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"post",
+								"comment",
+								"6429d29a92d2bbb40b15ad33",
+								"delete"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "soft Delete Post",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "Min@__eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MjhiNjAxOTY4OWExZTIzZjhlMTYxYSIsInVzZXJOYW1lIjoibWluYSIsImVtYWlsIjoibWluYWcyMDc3QGdtYWlsLmNvbSIsImlhdCI6MTY4MDQzNjk4NywiZXhwIjoxNjgwNTIzMzg3fQ.G3o9IhOj4W7MRlZtxaXabyQIM81L5HORMFWRzdW9zRA",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/post/comment/6429d29792d2bbb40b15ad2f/delete",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"post",
+								"comment",
+								"6429d29792d2bbb40b15ad2f",
+								"delete"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "like comment",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "Min@__eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MjhiNjAxOTY4OWExZTIzZjhlMTYxYSIsInVzZXJOYW1lIjoibWluYSIsImVtYWlsIjoibWluYWcyMDc3QGdtYWlsLmNvbSIsImlhdCI6MTY4MDQzNjk4NywiZXhwIjoxNjgwNTIzMzg3fQ.G3o9IhOj4W7MRlZtxaXabyQIM81L5HORMFWRzdW9zRA",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/E:/corsat/Web/route/back end(_Node.js_)/3amly/op/download.jpg"
+								},
+								{
+									"key": "bookName",
+									"value": "88888888",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "1111555",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:5000/post/642982fb1bda278b9ee817a6/like",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"post",
+								"642982fb1bda278b9ee817a6",
+								"like"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "unlike comment",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "Min@__eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MjhiNjAxOTY4OWExZTIzZjhlMTYxYSIsInVzZXJOYW1lIjoibWluYSIsImVtYWlsIjoibWluYWcyMDc3QGdtYWlsLmNvbSIsImlhdCI6MTY4MDQzNjk4NywiZXhwIjoxNjgwNTIzMzg3fQ.G3o9IhOj4W7MRlZtxaXabyQIM81L5HORMFWRzdW9zRA",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/E:/corsat/Web/route/back end(_Node.js_)/3amly/op/download.jpg"
+								},
+								{
+									"key": "bookName",
+									"value": "88888888",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "1111555",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:5000/post/comment/6429d29792d2bbb40b15ad2f/unlike",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"post",
+								"comment",
+								"6429d29792d2bbb40b15ad2f",
+								"unlike"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
