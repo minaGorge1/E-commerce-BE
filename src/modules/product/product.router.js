@@ -15,7 +15,7 @@ productRouter.post("/create-product",
     ]),
     productController.createProduct)
 
-productRouter.post("/update-product/:productId",
+productRouter.put("/update-product/:productId",
     auth(endpoint.update),
     fileUpload(fileValidation.image).fields([
         { name: "mainImage", maxCount: 1 },
