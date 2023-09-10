@@ -8,12 +8,19 @@ import { auth } from "../../middleware/auth.js";
 
 const productRouter = Router()
 productRouter.post("/create-product",
-auth(endpoint.create),
+    auth(endpoint.create),
     fileUpload(fileValidation.image).fields([
         { name: "mainImage", maxCount: 1 },
         { name: "subImages", maxCount: 5 }
     ]),
     productController.createProduct)
 
+productRouter.post("/update-product/:productId",
+    auth(endpoint.update),
+    fileUpload(fileValidation.image).fields([
+        { name: "mainImage", maxCount: 1 },
+        { name: "subImages", maxCount: 5 }
+    ]),
+    productController.updateProduct)
 
 export default productRouter
