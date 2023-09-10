@@ -6,10 +6,10 @@ const productSchema = new Schema({
     slug: { type: String, required: true, trim: true, lower: true },
     description: { type: String, trim: true },
     colors: [String],
-    size: {
+    size: [{
         type: String,
-        enum: ["s", "m", "lg", "xl"]
-    },
+        enum: ['s', 'm', 'lg', 'xl']
+    }],
     stock: { type: Number, required: true, default: 1 },
     price: { type: Number, required: true, default: 1 },
     discount: { type: Number, default: 0 },

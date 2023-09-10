@@ -6,13 +6,13 @@ import cloudinary from "../../../utils/cloudinary.js"
 import { nanoid } from "nanoid"
 import productModel from "../../../../DB/model/Product.model.js"
 
-export const test = asyncHandler((req, res, next) => {
-    return res.json({ message: "hi" })
+export const getProducts = asyncHandler(async (req, res, next) => {
+    const products = await productModel.find()
+    return res.json({ message: "Done" , products })
 })
 
-
 export const createProduct = asyncHandler(async (req, res, next) => {
-
+console.log(req.body.size);
     const { name, price, discount, categoryId, subcategoryId, brandId } = req.body;
     // check ids
     if (!await subcategoryModel.findOne({ _id: subcategoryId, categoryId })) {
@@ -37,7 +37,7 @@ export const createProduct = asyncHandler(async (req, res, next) => {
     const { secure_url, public_id } = await cloudinary.uploader.upload(req.files?.mainImage[0].path, { folder: `${process.env.APP_NAME}/product/${req.body.customId}` })
     req.body.mainImage = { secure_url, public_id }
 
-    if (req.files?.subImages?.lenght) {
+    if (req.files?.subImages?.length) {
         req.body.subImages = []
         for (const file of req.files.subImages) {
             const { secure_url, public_id } = await cloudinary.uploader.upload(file.path, { folder: `${process.env.APP_NAME}/product/${req.body.customId}/subImages` })
@@ -91,14 +91,15 @@ export const updateProduct = asyncHandler(async (req, res, next) => {
 
 
     //handel image
-    if (req.files?.mainImage?.lenght) {
+    if (req.files?.mainImage?.length) {
         const { secure_url, public_id } = await cloudinary.uploader.upload(req.files?.mainImage[0].path, { folder: `${process.env.APP_NAME}/product/${product.customId}` })
         req.body.mainImage = { secure_url, public_id }
         await cloudinary.uploader.destroy(product.mainImage.public_id)
     }
 
 
-    if (req.files?.subImages?.lenght) {
+    if (req.files?.subImages?.length) {
+
         req.body.subImages = []
         for (const file of req.files.subImages) {
             const { secure_url, public_id } = await cloudinary.uploader.upload(file.path, { folder: `${process.env.APP_NAME}/product/${product.customId}/subImages` })
@@ -106,10 +107,22 @@ export const updateProduct = asyncHandler(async (req, res, next) => {
         }
     }
 
-/* if (req.files?.subImages?.lenght) {
-    cloudinary.api.delete_all_resources([''])
-} */
+    /* if (req.files?.subImages?.length) {
+        cloudinary.api.delete_all_resources([''])
+    } */
 
     req.body.updatedBy = req.user._id
+    await productModel.updateOne({ _id: productId }, req.body)
+    return res.status(201).json({ message: "Done" })
+})
+
+export const deleteProduct = asyncHandler(async (req, res, next) => {
+
+    const product = await productModel.findById(req.params.productId)
+    if (!product || product.isDeleted == true) {
+        return next(new Error(`In-valid ID`, { case: 404 }))
+    }
+    product.isDeleted = true
+    await product.save()
     return res.status(201).json({ message: "Done", product })
 })

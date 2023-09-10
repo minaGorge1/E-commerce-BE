@@ -69,5 +69,5 @@ export const deleteCategory = asyncHandler(async (req, res, next) => {
     }
     category.isDeleted = true
     await category.save()
-    return res.status(201).json({ message: "Done", coupon })
+    return res.status(201).json({ message: "Done", category })
 })

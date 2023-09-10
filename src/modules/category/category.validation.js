@@ -8,7 +8,7 @@ export const headers = joi.object({
 
 export const createCategory = joi.object({
     name:joi.string().min(2).max(50).required(),
-    file:generalFields.file/* .required(), */
+    file:generalFields.file.required(),
     // if files  file:joi.array().items(generalFields.file.required()).required()
 }).required()
 

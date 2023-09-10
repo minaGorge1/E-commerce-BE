@@ -17,7 +17,7 @@ categoryRouter.get("/",
     categoryController.getCategoryList)
 
 categoryRouter.post("/create-category",
-    validation(validators.headers , true),
+    /* validation(validators.headers , true), */
     auth(endpoint.create),
     fileUpload(fileValidation.image).single("image"),
     validation(validators.createCategory),
