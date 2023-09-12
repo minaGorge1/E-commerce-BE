@@ -3,8 +3,9 @@ import productModel from "../../../../DB/model/Product.model.js"
 import cartModel from "../../../../DB/model/Cart.model.js"
 
 
-export const test = asyncHandler((req, res, next) => {
-    return res.json({ message: "hi" })
+export const getMyCart = asyncHandler(async (req, res, next) => {
+    const cart = await cartModel.findOne({ userId: req.user._id })
+    return res.json({ message: "hi", cart })
 })
 
 export const addCart = asyncHandler(async (req, res, next) => {
@@ -18,7 +19,7 @@ export const addCart = asyncHandler(async (req, res, next) => {
         return next(new Error(`In-valid product max available stock is : ${product?.stock}`, { cause: 400 }))
     }
 
-    const cart = await cartModel.findOne({ _id: req.user._id })
+    const cart = await cartModel.findOne({ userId: req.user._id })
     if (!cart) {
         const newCart = await cartModel.create({
             userId: req.user._id,
@@ -29,19 +30,41 @@ export const addCart = asyncHandler(async (req, res, next) => {
     }
 
     let matchProduct = false
-        for (const product of cart.products) {
-            if (product.productId.toString() == productId) {
-                product.quantity = quantity
-                matchProduct = true
-                break;
+    for (const product of cart.products) {
+        if (product.productId.toString() == productId) {
+            product.quantity = quantity
+            matchProduct = true
+            break;
+        }
+    }
+
+    if (!matchProduct) {
+        cart.products.push({ productId, quantity })
+    }
+
+    await cart.save()
+
+    return res.status(200).json({ message: `Done`, cart })
+})
+
+
+export const deleteFromCart = asyncHandler(async (req, res, next) => {
+    const { productIds } = req.body;
+    const cart = await cartModel.updateOne({ userId: req.user._id }
+        , {
+            $pull: {
+                products: {
+                    productId: {
+                        $in: productIds
+                    }
+                }
             }
-        }
+        })
+    return res.status(200).json({ message: `Done`, cart })
+})
 
-        if (!matchProduct) {
-            cart.products.push({productId, quantity})
-        }
 
-        await cart.save()
-
-        return res.status(200).json({message : `Done` , cart})
+export const clearCart = asyncHandler(async (req, res, next) => {
+    const cart = await cartModel.updateOne({ userId: req.user._id },{ products: [] })
+    return res.status(200).json({ message: `Done`, cart })
 })
