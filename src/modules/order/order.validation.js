@@ -9,19 +9,3 @@ export const signUpSchema =  joi.object({
         cPassword: generalFields.cPassword.valid(joi.ref('password'))
     }).required()
 
-
-
-export const logInSchema = joi.object({
-        email: generalFields.email,
-        password: generalFields.password
-    }).required()
-
-    export const forGotPassword = joi.object({
-        email: generalFields.email
-    }).required()
-
-
-export const GotNewPass =  joi.object({
-        newPassword: generalFields.password.invalid(joi.ref("oldPassword")),
-        cPassword: generalFields.cPassword.valid(joi.ref("newPassword"))
-    }).required()
