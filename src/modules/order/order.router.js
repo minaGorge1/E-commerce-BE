@@ -20,10 +20,20 @@ orderRouter.post('/create-order-from-cart',
 auth(endpoint.create),
 orderController.orderFromCart) */
 
-//from cart
+//from cart + products
 orderRouter.post('/create-order-product-or-cart',
 auth(endpoint.create),
 validation(validators.createOrder),
 orderController.orderProductOrFromCart)
+
+orderRouter.patch('/cancel-order/:orderId',
+auth(endpoint.cancel),
+validation(validators.cancelOrder),
+orderController.cancelOrder)
+
+orderRouter.patch('/delivered-order/:orderId',
+auth(endpoint.delivered),
+validation(validators.deliveredOrder),
+orderController.deliveredOrder)
 
 export default orderRouter

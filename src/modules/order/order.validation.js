@@ -14,3 +14,13 @@ export const createOrder = joi.object({
     )
 }).required()
 
+
+export const cancelOrder = joi.object({
+    orderId: generalFields.id,
+    reason: joi.string().min(2).max(5000).required()
+})
+
+export const deliveredOrder = joi.object({
+    orderId: generalFields.id,
+})
+

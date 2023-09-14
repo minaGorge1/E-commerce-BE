@@ -212,3 +212,42 @@ export const orderProductOrFromCart = asyncHandler(async (req, res, next) => {
 
     return res.status(201).json({ massage: 'Done', order })
 })
+
+export const cancelOrder = asyncHandler(async (req, res, next) => {
+    const { orderId } = req.params;
+    const {reason} =req.body;
+    const order = await orderModel.findOne({ _id: orderId, userId: req.user._id })
+    if (!order) {
+        return next(new Error(`In-valid`, { cause: 400 }))
+    }
+    if ((order.status != 'placed' && order.paymentType == 'cash') ||
+        (order.status != 'waitPayment' && order.paymentType == 'card')) {
+        return next(new Error(`cannot cancel your order after it been changed to ${order.status}`, { cause: 400 }))
+    }
+
+    await orderModel.updateOne({ _id: orderId, userId: req.user._id }, { status: 'canceled', updatedBy: req.user._id , reason})
+    for (const product of order.products) {
+        await productModel.updateOne({ _id: product.productId }, { $inc: { stock: parseInt(product.quantity) } })
+    }
+
+    if (order.couponId) {
+        await couponModel.updateOne({ _id: order.couponId }, { $pull: { usedBy: req.user._id } })
+    }
+
+    return res.status(201).json({ massage: 'Done', order })
+})
+
+export const deliveredOrder = asyncHandler(async (req, res, next) => {
+    const { orderId } = req.params;
+    const {reason} =req.body;
+    const order = await orderModel.findById(orderId)
+    if (!order) {
+        return next(new Error(`In-valid id`, { cause: 400 }))
+    }
+    if ( ['waitPayment',  'canceled', 'rejected', 'delivered'].includes(order.status)) {
+        return next(new Error(`cannot update your order after it been changed to ${order.status}`, { cause: 400 }))
+    }
+
+    await orderModel.updateOne({ _id: orderId}, { status: 'delivered', updatedBy: req.user._id })
+    return res.status(201).json({ massage: 'Done', order })
+})
