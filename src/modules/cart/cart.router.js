@@ -6,7 +6,7 @@ import * as validators from "./cart.validation.js";
 import * as cartController from "./controller/cart.js"
 
 const cartRouter = Router()
-cartRouter.get("/",
+cartRouter.post("/",
     auth(endpoint.get), 
     cartController.getMyCart)
 

@@ -7,7 +7,7 @@ export const signUpSchema = joi.object({
     userName: joi.string().max(20).required().alphanum(),
     address: joi.string(),
     gender: joi.string().valid('male', 'female'),
-    phone: joi.string().required(),
+    phone: joi.string().pattern(new RegExp(/^(002|\+2)? 01[0125][0-9]{8}$/)).required(),
     email: generalFields.email,
     password: generalFields.password,
     cPassword: generalFields.cPassword.valid(joi.ref('password'))
