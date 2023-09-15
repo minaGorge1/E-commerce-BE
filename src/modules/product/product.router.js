@@ -1,3 +1,4 @@
+import reviewRouter from '../reviews/reviews.router.js'
 import * as productController from "./controller/product.js"
 import * as validators from "./product.validation.js";
 import { fileUpload, fileValidation } from "../../utils/cloudMulter.js";
@@ -7,6 +8,7 @@ import { auth } from "../../middleware/auth.js";
 import { Router } from "express";
 
 const productRouter = Router()
+productRouter.use("/:productId/review", reviewRouter)
 
 productRouter.get("/",productController.getProducts)
 
