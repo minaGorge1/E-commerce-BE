@@ -6,13 +6,14 @@ import cloudinary from "../../../utils/cloudinary.js"
 import { nanoid } from "nanoid"
 import productModel from "../../../../DB/model/Product.model.js"
 import userModel from "../../../../DB/model/User.model.js"
+import { paginate } from "../../../utils/paginate.js"
+import ApiFeatures from "../../../utils/apiFeatures.js"
 
 export const getProducts = asyncHandler(async (req, res, next) => {
-    const productList = await productModel.find().populate([{
-        path: "review",
-        match: { isDeleted: false }
-    }])
 
+    const apiFeature = new ApiFeatures(productModel.find().populate([{ path: "review", match: { isDeleted: false } }]), req.query).paginate().filter().sort().search().select()
+    const productList = await apiFeature.mongooseQuery
+    
     for (let i = 0; i < productList.length; i++) {
         let calcRating = 0;
         for (let j = 0; j < productList[i].review.length; j++) {
