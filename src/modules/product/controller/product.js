@@ -5,14 +5,29 @@ import { asyncHandler } from "../../../utils/errorHandling.js"
 import cloudinary from "../../../utils/cloudinary.js"
 import { nanoid } from "nanoid"
 import productModel from "../../../../DB/model/Product.model.js"
+import userModel from "../../../../DB/model/User.model.js"
 
 export const getProducts = asyncHandler(async (req, res, next) => {
-    const products = await productModel.find()
-    return res.json({ message: "Done" , products })
+    const productList = await productModel.find().populate([{
+        path: "review",
+        match: { isDeleted: false }
+    }])
+
+    for (let i = 0; i < productList.length; i++) {
+        let calcRating = 0;
+        for (let j = 0; j < productList[i].review.length; j++) {
+            calcRating += productList[i].review[j].rating
+        }
+        const conVObject = productList[i].toObject()
+        conVObject.rating = calcRating / productList[i].review.length
+        productList[i] = conVObject
+
+    }
+    return res.json({ message: "Done", productList })
 })
 
 export const createProduct = asyncHandler(async (req, res, next) => {
-console.log(req.body.size);
+    console.log(req.body.size);
     const { name, price, discount, categoryId, subcategoryId, brandId } = req.body;
     // check ids
     if (!await subcategoryModel.findOne({ _id: subcategoryId, categoryId })) {
@@ -125,4 +140,20 @@ export const deleteProduct = asyncHandler(async (req, res, next) => {
     product.isDeleted = true
     await product.save()
     return res.status(201).json({ message: "Done", product })
+})
+
+export const wishList = asyncHandler(async (req, res, next) => {
+    const { productId } = req.params
+    if (!await productModel.findOne({ _id: productId, isDeleted: false })) {
+        return next(new Error('In-valid product', { cause: 404 }))
+    }
+    await userModel.updateOne({ _id: req.user._id }, { $addToSet: { wishList: productId } })
+
+    return res.status(200).json({ message: "Done" })
+})
+
+export const deleteFromWishList = asyncHandler(async (req, res, next) => {
+    const { productId } = req.params
+    await userModel.updateOne({ _id: req.user._id }, { $pull: { wishList: productId } })
+    return res.status(200).json({ message: "Done" })
 })

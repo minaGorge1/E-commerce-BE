@@ -1,4 +1,4 @@
-import mongoose, { Schema, model } from "mongoose";
+import mongoose, { Schema, model, Types } from "mongoose";
 
 /* (userName,phone,email,password,cpassword,status) */
 
@@ -54,11 +54,12 @@ const userSchema = new Schema({
     },
     image: Object,
     DOB: String,
-    code:{
-        type : Number ,
-        default : null
+    code: {
+        type: Number,
+        default: null
     },
-    changePasswordTime: Date
+    changePasswordTime: Date,
+    wishList: [{ type: Types.ObjectId, ref: "Product" }]
 }, {
     timestamps: true
 })

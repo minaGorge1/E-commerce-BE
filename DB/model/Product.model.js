@@ -25,7 +25,15 @@ const productSchema = new Schema({
     wishUser: [{ type: Types.ObjectId, ref: "User" }],
     isDeleted: { type: Boolean, default: false }
 }, {
-    timestamps: true
+    timestamps: true,
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true },
+})
+
+productSchema.virtual('review', {
+    localField: "_id",
+    ref: "Review",
+    foreignField: 'productId'
 })
 
 const productModel = mongoose.models.Product || model("Product", productSchema)

@@ -43,3 +43,8 @@ export const updateProduct = joi.object({
 export const deleteProduct = joi.object({
     productId: generalFields.id,
 }).required()
+
+
+export const wishList = joi.object({
+    productId: generalFields.id,
+}).required()

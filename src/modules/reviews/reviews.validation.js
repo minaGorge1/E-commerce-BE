@@ -13,3 +13,9 @@ export const updateReview = joi.object({
     comment: joi.string().max(2).max(5000).required(),
     rating: joi.number().positive().required().min(1).max(5)
 }).required()
+
+
+export const deleteReview = joi.object({
+    productId: generalFields.id,
+    reviewId: generalFields.id,
+}).required()

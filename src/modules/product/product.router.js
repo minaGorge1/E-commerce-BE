@@ -10,7 +10,7 @@ import { Router } from "express";
 const productRouter = Router()
 productRouter.use("/:productId/review", reviewRouter)
 
-productRouter.get("/",productController.getProducts)
+productRouter.get("/", productController.getProducts)
 
 productRouter.post("/create-product",
     auth(endpoint.create),
@@ -30,9 +30,21 @@ productRouter.put("/update-product/:productId",
     validation(validators.updateProduct),
     productController.updateProduct)
 
-    productRouter.delete("/delete-product/:productId",
+productRouter.delete("/delete-product/:productId",
     auth(endpoint.delete),
     validation(validators.deleteProduct),
     productController.deleteProduct);
+
+//wishlist
+
+productRouter.patch("/:productId/wishlist/add",
+    auth(endpoint.wishList),
+    validation(validators.wishList),
+    productController.wishList)
+
+productRouter.patch("/:productId/wishlist/remove",
+    auth(endpoint.wishList),
+    validation(validators.wishList),
+    productController.deleteFromWishList)
 
 export default productRouter
