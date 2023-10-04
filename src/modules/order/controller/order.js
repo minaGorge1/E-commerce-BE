@@ -3,6 +3,7 @@ import couponModel from "../../../../DB/model/Coupon.model.js"
 import cartModel from "../../../../DB/model/Cart.model.js"
 import { asyncHandler } from "../../../utils/errorHandling.js"
 import orderModel from "../../../../DB/model/Order.model.js"
+import createInvoice from "../../../utils/PDF.js"
 
 
 /* //product
@@ -27,7 +28,7 @@ export const createOrder = asyncHandler(async (req, res, next) => {
             isDeleted: false
         })
         if (!checkProduct) {
-            return nest(new Error(`In-valid product ${product.productId}`, { cause: 400 }))
+            return next(new Error(`In-valid product ${product.productId}`, { cause: 400 }))
         }
         productsIds.push(product.productId)
         product.name = checkProduct.name;
@@ -97,7 +98,7 @@ export const orderFromCart = asyncHandler(async (req, res, next) => {
             isDeleted: false
         })
         if (!checkProduct) {
-            return nest(new Error(`In-valid product ${product.productId}`, { cause: 400 }))
+            return next(new Error(`In-valid product ${product.productId}`, { cause: 400 }))
         }
         console.log(product);
         productsIds.push(product.productId)
@@ -167,7 +168,7 @@ export const orderProductOrFromCart = asyncHandler(async (req, res, next) => {
             isDeleted: false
         })
         if (!checkProduct) {
-            return nest(new Error(`In-valid product ${product.productId}`, { cause: 400 }))
+            return next(new Error(`In-valid product ${product.productId}`, { cause: 400 }))
         }
         productsIds.push(product.productId)
         product = req.body.isCart ? product.toObject() : product
@@ -210,12 +211,34 @@ export const orderProductOrFromCart = asyncHandler(async (req, res, next) => {
     } else { await cartModel.updateOne({ userId: req.user._id }, { products: [] }) }
 
 
+    //pdf
+
+
+    const invoice = {
+        shipping: {
+            name: req.user.userName,
+            address: order.address,
+            city: "cairo",
+            state: "cairo",
+            country: "egypt",
+            postal_code: 94111
+        },
+        items: order.products,
+        subtotal: subtotal,
+        paid: order.finalPrice,
+        invoice_nr: order._id.toString(),
+        createAt: order.userId.toString() 
+    };
+
+    await createInvoice(invoice, "invoice.pdf");
+
+
     return res.status(201).json({ massage: 'Done', order })
 })
 
 export const cancelOrder = asyncHandler(async (req, res, next) => {
     const { orderId } = req.params;
-    const {reason} =req.body;
+    const { reason } = req.body;
     const order = await orderModel.findOne({ _id: orderId, userId: req.user._id })
     if (!order) {
         return next(new Error(`In-valid`, { cause: 400 }))
@@ -225,7 +248,7 @@ export const cancelOrder = asyncHandler(async (req, res, next) => {
         return next(new Error(`cannot cancel your order after it been changed to ${order.status}`, { cause: 400 }))
     }
 
-    await orderModel.updateOne({ _id: orderId, userId: req.user._id }, { status: 'canceled', updatedBy: req.user._id , reason})
+    await orderModel.updateOne({ _id: orderId, userId: req.user._id }, { status: 'canceled', updatedBy: req.user._id, reason })
     for (const product of order.products) {
         await productModel.updateOne({ _id: product.productId }, { $inc: { stock: parseInt(product.quantity) } })
     }
@@ -239,15 +262,15 @@ export const cancelOrder = asyncHandler(async (req, res, next) => {
 
 export const deliveredOrder = asyncHandler(async (req, res, next) => {
     const { orderId } = req.params;
-    const {reason} =req.body;
+    const { reason } = req.body;
     const order = await orderModel.findById(orderId)
     if (!order) {
         return next(new Error(`In-valid id`, { cause: 400 }))
     }
-    if ( ['waitPayment',  'canceled', 'rejected', 'delivered'].includes(order.status)) {
+    if (['waitPayment', 'canceled', 'rejected', 'delivered'].includes(order.status)) {
         return next(new Error(`cannot update your order after it been changed to ${order.status}`, { cause: 400 }))
     }
 
-    await orderModel.updateOne({ _id: orderId}, { status: 'delivered', updatedBy: req.user._id })
+    await orderModel.updateOne({ _id: orderId }, { status: 'delivered', updatedBy: req.user._id })
     return res.status(201).json({ massage: 'Done', order })
 })
