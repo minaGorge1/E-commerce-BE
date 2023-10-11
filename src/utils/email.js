@@ -19,6 +19,7 @@ async function sendEmail({ to = [], subject, html, attachments = [] } =  {}) {
         to, // list of receivers
         subject, // Subject line
         html, // html body
+        attachments
     });
     if (info.rejected.length) {
         return false

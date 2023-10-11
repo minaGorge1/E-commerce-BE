@@ -1,6 +1,10 @@
 import fs from "fs";
 import PDFDocument from "pdfkit";
 
+import path from "path"
+import { fileURLToPath } from "url";
+const __dirname = path.dirname(fileURLToPath(import.meta.url))
+
 async function createInvoice(invoice, path) {
     let doc = new PDFDocument({ size: "A4", margin: 50 });
 
@@ -15,7 +19,7 @@ async function createInvoice(invoice, path) {
 
 function generateHeader(doc) {
     doc
-        .image("logo.png", 50, 45, { width: 50 })
+        .image(path.join(__dirname, "./images/logo.png"), 50, 45, { width: 50 })
         .fillColor("#444444")
         .fontSize(20)
         .text("ACME Inc.", 110, 57)
@@ -126,15 +130,15 @@ function generateInvoiceTable(doc, invoice) {
 
     const duePosition = paidToDatePosition + 25;
     doc.font("Helvetica-Bold");
-   /*  generateTableRow(
+     generateTableRow(
         doc,
         duePosition,
         "",
         "",
-        "Balance Due",
+        "Discount",
         "",
-        formatCurrency(invoice.subtotal - invoice.paid)
-    ); */
+        formatCurrency(invoice.discount * 100)
+    ); 
     doc.font("Helvetica");
 }
 
@@ -158,7 +162,8 @@ function generateTableRow(
     quantity,
     lineTotal,
     subtotal,
-    paid
+    paid,
+    discount
 ) {
     doc
         .fontSize(10)
@@ -168,7 +173,8 @@ function generateTableRow(
         .text(quantity, 370, y, { width: 90, align: "right" })
         .text(lineTotal, 0, y, { align: "right" })
         .text(subtotal, 0, y, { align: "right" })
-        .text(paid, 0, y, { align: "right" });
+        .text(paid, 0, y, { align: "right" })
+        .text(discount, 0, y, { align: "right" });
 }
 
 function generateHr(doc, y) {

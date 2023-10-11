@@ -3,8 +3,15 @@ import couponModel from "../../../../DB/model/Coupon.model.js"
 import cartModel from "../../../../DB/model/Cart.model.js"
 import { asyncHandler } from "../../../utils/errorHandling.js"
 import orderModel from "../../../../DB/model/Order.model.js"
+import cloudinary from "../../../utils/cloudinary.js"
 import createInvoice from "../../../utils/PDF.js"
+import sendEmail from "../../../utils/email.js"
+import fs from 'fs'
 
+import path from "path"
+import { fileURLToPath } from "url";
+//set directory dirname
+const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
 /* //product
 export const createOrder = asyncHandler(async (req, res, next) => {
@@ -213,7 +220,6 @@ export const orderProductOrFromCart = asyncHandler(async (req, res, next) => {
 
     //pdf
 
-
     const invoice = {
         shipping: {
             name: req.user.userName,
@@ -227,10 +233,21 @@ export const orderProductOrFromCart = asyncHandler(async (req, res, next) => {
         subtotal: subtotal,
         paid: order.finalPrice,
         invoice_nr: order._id.toString(),
-        createAt: order.userId.toString() 
+        discount: (subtotal * ((req.body.coupon?.amount || 0) / 100)) || 0,
+        createAt: order.userId.toString()
     };
 
-    await createInvoice(invoice, "invoice.pdf");
+    await createInvoice(invoice, path.join(__dirname, "../pdf/invoice.pdf"));
+    //const {secure_url} = await cloudinary.uploader.upload(path.join(__dirname, "../pdf/invoice.pdf"),{folder:`${process.env.APP_NAME}/Invoice`})
+    await sendEmail({
+        to: req.user.email,
+        subject: "Invoice",
+        attachments: [{
+            path: path.join(__dirname, "../pdf/invoice.pdf"),//secure_url
+            contentType: 'application/pdf'
+        }]
+    })
+    fs.unlinkSync(path.join(__dirname, "../pdf/invoice.pdf"))
 
 
     return res.status(201).json({ massage: 'Done', order })
