@@ -13,7 +13,39 @@ import authRouter from "./modules/auth/auth.router.js";
 import { globalErrorHandling } from "./utils/errorHandling.js";
 
 const initApp = (app, express) => {
-    app.use(cors())
+    //app.use(cors())
+    /*  app.use(async (req, res, next) => {
+ 
+         if (!whitelist.includes(req.header('origin'))) {
+             return next(new Error('Not allowed by CORS'))
+         }
+ 
+         await res.header('Access-Control-Allow-Origin®', req.header('origin'));
+         await res.header('Access-Control-Allow-Headers', '*')
+         await res.header("Access-Control-Allow-Private-Network", 'true')
+         await res.header('Access-Control-Allow-Methods', '*')
+         console.log("Origin Work"); I
+         next();
+     });
+  */
+
+    var whitelist = ['http://example1.com', 'http://example2.com']
+    var corsOptions = {
+        origin: function (origin, callback) {
+            if (whitelist.indexOf(origin) !== -1) {
+                callback(null, true)
+            } else {
+                callback(new Error('Not allowed by CORS'))
+            }
+        }
+    }
+
+    app.use(cors(corsOptions))
+
+
+
+
+
     app.use(express.json({}))
 
     app.get("/", (req, res, next) => {
@@ -24,7 +56,7 @@ const initApp = (app, express) => {
     app.use("/cart", cartRouter)
     app.use("/category", categoryRouter)
     app.use("/subcategory", subcategoryRouter)
-    
+
     app.use("/coupon", couponRouter)
     app.use("/order", orderRouter)
     app.use("/product", productRouter)
