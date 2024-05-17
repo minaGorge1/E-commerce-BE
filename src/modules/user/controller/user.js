@@ -1,4 +1,4 @@
-/* import userModel from "../../../../DB/model/User.model.js";
+import userModel from "../../../../DB/model/User.model.js";
 import { asyncHandler } from "../../../utils/errorHandling.js";
 import { compare, hash } from "../../../utils/hashAndCompare.js";
 import cloudinary from "../../../utils/cloudinary.js"
@@ -53,7 +53,7 @@ export const updatePassword = asyncHandler(async (req, res, next) => {
 
 
 
-//userPirPic
+//userProPic
 export const userPirPic = asyncHandler(async (req, res, next) => {
 
     if (!req.file) {
@@ -62,6 +62,17 @@ export const userPirPic = asyncHandler(async (req, res, next) => {
     const { secure_url, public_id } = await cloudinary.uploader.upload(req.file.path, { folder: `user/${req.user._id}/pic` })
     const user = await userModel.findByIdAndUpdate(req.user._id, { profilePic: { secure_url, public_id } }, { new: false })
     await cloudinary.uploader.destroy(user.profilePic.public_id)
+    return res.status(201).json({ message: "Done", user})
+}) 
+
+//userProPic multer
+export const userProPic = asyncHandler(async (req, res, next) => {
+
+    if (!req.file) {
+        return next(new Error("Image is requird", { cause: 409 }))
+    }
+
+    const user = await userModel.findByIdAndUpdate(req.user._id, { profilePic: req.file.dest }, { new: true })
     return res.status(201).json({ message: "Done", user})
 }) 
 
@@ -78,4 +89,19 @@ export const userCoverPiC = asyncHandler(async (req, res, next) => {
     }
     const user = await userModel.findByIdAndUpdate(req.user._id, {coverPic}, { new: true })
     return res.status(201).json({ message: "Done", user })
-})  */
+}) 
+
+
+//userCoverPiCMulter
+export const userCoverPiCMulter = asyncHandler(async (req, res, next) => {
+
+    if (!req.files?.length) {
+        return next(new Error("Image is requird", { cause: 409 }))
+    }
+    const coverPic = []
+    for (const file of req.files) {
+        coverPic.push(file.dest )
+    }
+    const user = await userModel.findByIdAndUpdate(req.user._id, {coverPic}, { new: true })
+    return res.status(201).json({ message: "Done", user })
+}) 
